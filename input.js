@@ -1,11 +1,14 @@
+const { MOVEMENT_KEYS, CANNED_MESSAGES, ENCODING } = require("./constants");
+
 let connection;
 let currentIntervalID;
 let intervalMilliseconds = 50;
+
 const setupInput = (conn) => {
   connection = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
-  stdin.setEncoding('utf-8');
+  stdin.setEncoding(ENCODING);
   stdin.resume();
   stdin.on("data", handleUserInput);
   return stdin;
@@ -25,34 +28,33 @@ const handleUserInput = (key) => {
   if (key === '\u0003') {
     process.exit();
   }
-  if (key === 'x') { // stop moving
+  if (key === MOVEMENT_KEYS.STOP.Key) { // stop moving
     stopInterval(currentIntervalID);
+  } 
+
+  if (CANNED_MESSAGES[key]) {
+    connection.write(`${CANNED_MESSAGES.prefix}${CANNED_MESSAGES[key]}`);
   }
-  if (key === 'h') { // CTRL+H to say Hello!
-    connection.write("Say: Hello!");
-  }
-  if (key === 'n') { // CTRL+N to say NOMNOM!
-    connection.write("Say: NOMNOM");
-  }
+
   switch (key) {
-  case 'w': {
-    stopInterval(currentIntervalID);
-    initiateInterval("Move: up", intervalMilliseconds);
+  case MOVEMENT_KEYS.UP.Key: {
+    stopInterval();
+    initiateInterval(MOVEMENT_KEYS.UP.Output, intervalMilliseconds);
     break;
   }
-  case 's': {
-    stopInterval(currentIntervalID);
-    initiateInterval("Move: down", intervalMilliseconds);
+  case MOVEMENT_KEYS.DOWN.Key: {
+    stopInterval();
+    initiateInterval(MOVEMENT_KEYS.DOWN.Output, intervalMilliseconds);
     break;
   }
-  case 'a': {
-    stopInterval(currentIntervalID);
-    initiateInterval("Move: left", intervalMilliseconds);
+  case MOVEMENT_KEYS.LEFT.Key: {
+    stopInterval();
+    initiateInterval(MOVEMENT_KEYS.LEFT.Output, intervalMilliseconds);
     break;
   }
-  case 'd': {
-    stopInterval(currentIntervalID);
-    initiateInterval("Move: right", intervalMilliseconds);
+  case MOVEMENT_KEYS.RIGHT.Key: {
+    stopInterval();
+    initiateInterval(MOVEMENT_KEYS.RIGHT.Output, intervalMilliseconds);
     break;
   }
   default: {

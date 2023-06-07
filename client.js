@@ -1,12 +1,10 @@
 const net = require('net');
-
-let host = '165.227.47.243'; // LHL Server
+const { IP, PORT, PLAYER_NAME } = require("./constants");
 
 const connect = () => {
   const conn = net.createConnection({
-    //host: 'localhost', // for now
-    host: host,
-    port: 50541
+    host: IP,
+    port: PORT
   });
   // set correct encoding
   conn.setEncoding('utf-8');
@@ -17,7 +15,7 @@ const connect = () => {
   });
 
   conn.on('connect', () => {
-    conn.write("Name: PCF");    
+    conn.write(PLAYER_NAME);
   });
 
   return conn;
