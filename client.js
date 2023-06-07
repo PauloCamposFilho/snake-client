@@ -15,7 +15,11 @@ const connect = () => {
 
   conn.on('connect', () => {
     conn.write("Name: PCF");
-  })
+    // setInterval(() => {
+    //   conn.write("Move: up");
+    // }, 50)
+  });
+
   return conn;
 };
 
