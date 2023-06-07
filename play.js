@@ -1,17 +1,21 @@
 const { connect } = require("./client");
 
-// const connect = () => {
-//   const conn = net.createConnection({
-//     host: 'localhost', // for now
-//     port: 50541
-//   });
-//   // set correct encoding
-//   conn.setEncoding('utf-8');
-//   conn.on('data', (data) => {
-//     console.log('data:', data);
-//   });
-//   return conn;
-// };
+const setupInput = () => {
+  const stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.setEncoding('utf-8');
+  stdin.resume();
+  return stdin;
+};
+
+const handleUserInput = (key) => {
+  if (key === '\u0003') {
+    process.exit();
+  }
+};
+
+const stdin = setupInput();
+stdin.on("data", handleUserInput);
 
 console.log("Connecting...");
 connect();
