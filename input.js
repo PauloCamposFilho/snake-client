@@ -17,13 +17,22 @@ const initiateInterval = (action, intervalMilliseconds) => {
   }, intervalMilliseconds);
 };
 
-const stopInterval = (intervalID) => {
-  clearInterval(intervalID);
+const stopInterval = () => {
+  clearInterval(currentIntervalID);
 };
 
 const handleUserInput = (key) => {
   if (key === '\u0003') {
     process.exit();
+  }
+  if (key === 'x') { // stop moving
+    stopInterval(currentIntervalID);
+  }
+  if (key === 'h') { // CTRL+H to say Hello!
+    connection.write("Say: Hello!");
+  }
+  if (key === 'n') { // CTRL+N to say NOMNOM!
+    connection.write("Say: NOMNOM");
   }
   switch (key) {
   case 'w': {
@@ -47,7 +56,7 @@ const handleUserInput = (key) => {
     break;
   }
   default: {
-    console.log("Invalid key!", key);
+    // console.log("Invalid key!", key);
   }
   }
 };
