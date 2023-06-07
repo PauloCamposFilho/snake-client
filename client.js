@@ -1,8 +1,11 @@
 const net = require('net');
 
+let host = '165.227.47.243'; // LHL Server
+
 const connect = () => {
   const conn = net.createConnection({
-    host: 'localhost', // for now
+    //host: 'localhost', // for now
+    host: host,
     port: 50541
   });
   // set correct encoding
@@ -14,10 +17,7 @@ const connect = () => {
   });
 
   conn.on('connect', () => {
-    conn.write("Name: PCF");
-    // setInterval(() => {
-    //   conn.write("Move: up");
-    // }, 50)
+    conn.write("Name: PCF");    
   });
 
   return conn;
