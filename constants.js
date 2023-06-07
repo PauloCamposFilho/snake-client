@@ -1,25 +1,11 @@
 const IP = "165.227.47.243";
 const PORT = 50541;
 const MOVEMENT_KEYS = {
-  UP: {
-    Key: "w",
-    Output: "Move: up"
-  },
-  DOWN: {
-    Key: "s",
-    Output: "Move: down"
-  },
-  LEFT: {
-    Key: "a",
-    Output: "Move: left"
-  },
-  RIGHT: {
-    Key: "d",
-    Output: "Move: right"},
-  STOP: {
-    Key: "x",
-    Output: "Move: stop"
-  } // specific to my implementation
+  w: "Move: up",
+  s: "Move: down",
+  a: "Move: left",
+  d: "Move: right",
+  STOP: "x" // specific to my implementation
 };
 
 const CANNED_MESSAGES = {

@@ -28,38 +28,17 @@ const handleUserInput = (key) => {
   if (key === '\u0003') {
     process.exit();
   }
-  if (key === MOVEMENT_KEYS.STOP.Key) { // stop moving
+  if (key === MOVEMENT_KEYS.STOP) { // stop moving
     stopInterval(currentIntervalID);
-  } 
+  }
+
+  if (MOVEMENT_KEYS[key]) {
+    stopInterval();
+    initiateInterval(MOVEMENT_KEYS[key], intervalMilliseconds);
+  }
 
   if (CANNED_MESSAGES[key]) {
     connection.write(`${CANNED_MESSAGES.prefix}${CANNED_MESSAGES[key]}`);
-  }
-
-  switch (key) {
-  case MOVEMENT_KEYS.UP.Key: {
-    stopInterval();
-    initiateInterval(MOVEMENT_KEYS.UP.Output, intervalMilliseconds);
-    break;
-  }
-  case MOVEMENT_KEYS.DOWN.Key: {
-    stopInterval();
-    initiateInterval(MOVEMENT_KEYS.DOWN.Output, intervalMilliseconds);
-    break;
-  }
-  case MOVEMENT_KEYS.LEFT.Key: {
-    stopInterval();
-    initiateInterval(MOVEMENT_KEYS.LEFT.Output, intervalMilliseconds);
-    break;
-  }
-  case MOVEMENT_KEYS.RIGHT.Key: {
-    stopInterval();
-    initiateInterval(MOVEMENT_KEYS.RIGHT.Output, intervalMilliseconds);
-    break;
-  }
-  default: {
-    // console.log("Invalid key!", key);
-  }
   }
 };
 
